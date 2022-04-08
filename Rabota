@@ -1,1 +1,15 @@
-
+from random import randint
+try:
+    K = int(input("Введите число K = "))
+    N = int(input("Введите число N = "))
+    row_q = N
+    A = [[randint(-10, 10) for j in range(N)] for i in range(N)]
+    for i in range(N):
+        for j in range(N):
+            A.append(0)
+    for i in range(N):
+        for j in range(N):
+            print(A[i][j], end=' ')
+        print()
+except ValueError:
+    print("Это не число")
