@@ -1,15 +1,18 @@
+import time
 from random import randint
 try:
+    start = time.time()
     K = int(input("Введите число K = "))
     N = int(input("Введите число N = "))
     row_q = N
     A = [[randint(-10, 10) for j in range(N)] for i in range(N)]
     for i in range(N):
         for j in range(N):
-            A.append(0)
-    for i in range(N):
-        for j in range(N):
             print(A[i][j], end=' ')
         print()
+    finish = time.time()
+    result = finish - start
+    print("Время выполнения программы: " + str(result) + " секунд.")
 except ValueError:
     print("Это не число")
+    
