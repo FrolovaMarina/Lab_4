@@ -1,18 +1,96 @@
 import time
 from random import randint
 try:
+    #K = int(input("Введите число K = "))
+    N = int(input("Введите чётное число N = "))
+    if N % 2 != 0:
+        print("Число нечётное")
+        exit()
     start = time.time()
-    K = int(input("Введите число K = "))
-    N = int(input("Введите число N = "))
     row_q = N
-    A = [[randint(-10, 10) for j in range(N)] for i in range(N)]
-    for i in range(N):
-        for j in range(N):
-            print(A[i][j], end=' ')
-        print()
+    A = [[randint(0, 9) for j in range(N)] for i in range(N)]
+    #for i in range(N):
+        #for j in range(N):
+            #print(A[i][j], end=' ')
+        #print()
+    #print()
+    B = []
+    C = []
+    size = N // 2
+    for i in range(size):
+        B.append([0] * size)
+        for j in range(size):
+            B[i][j] = A[i][j]
+            #print(B[i][j], end=' ')
+        #print()
+    #print()
+    for i in range(size):
+        C.append([0] * size)
+        for j in range(size):
+            C[i][j] = A[i][j+size]
+            #print(C[i][j], end=' ')
+        #print()
+    b1 = []
+    for index, i in enumerate(B):
+        if index < len(B) / 2:
+            b1.append(i[:index+1])
+        else:
+            b1.append(i[:-index])
+    #print(b1)
+    b2 = []
+    for index, i in enumerate(B[:len(B) // 2]):
+        if index == 0:
+            b2.append(i)
+        else:
+            b2.append(i[index:-index])
+    #print(b2)
+    b3 = []
+    for index, i in enumerate(B):
+        if index < len(B) / 2:
+            b3.append(i[-index-1:])
+        else:
+            b3.append(i[index:])
+    #print(b3)
+    count = 0
+    simple_numbers = [2, 3, 5, 7]
+    for index, i in enumerate(b2):
+        if index % 2 == 0:
+            i = i[::2]
+        else:
+            i = i[1::2]
+        for k in simple_numbers:
+            count += i.count(k)
+    #print(count)
+    multiplication = 1
+    for i in b3:
+        if len(i) == 1:
+            multiplication *= i[0]
+        else:
+            multiplication *= i[0] * i[-1]
+    #print(multiplication)
+    if count == multiplication:
+        for index, i in enumerate(B):
+            if index < len(B) / 2:
+                i[:index + 1], i[-index - 1:] = i[-index - 1:][::-1], i[:index + 1][::-1]
+            else:
+                i[:-index], i[index:] = i[index:][::-1], i[:-index][::-1]
+    #print(B)
+    else:
+        for index in range(len(B)):
+            B[index], C[index] = C[index], B[index]
+    #print("B=", B)
+    #print("C=", C)
+    F = A.copy()
+    for i in range(len(F)):
+        if i < len(F) / 2:
+            F[i] = B[i] + C[i]
+    #for i in range(N):
+        #for j in range(N):
+            #print(F[i][j], end=' ')
+        #print()
+    #print()
     finish = time.time()
     result = finish - start
     print("Время выполнения программы: " + str(result) + " секунд.")
 except ValueError:
     print("Это не число")
-    
