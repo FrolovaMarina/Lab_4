@@ -9,11 +9,11 @@ try:
     start = time.time()
     row_q = N
     A = [[randint(0, 9) for j in range(N)] for i in range(N)]
-    #for i in range(N):
-        #for j in range(N):
-            #print(A[i][j], end=' ')
-        #print()
-    #print()
+    for i in range(N):
+        for j in range(N):
+            print(A[i][j], end=' ')
+        print()
+    print()
     B = []
     C = []
     size = N // 2
@@ -84,11 +84,11 @@ try:
     for i in range(len(F)):
         if i < len(F) / 2:
             F[i] = B[i] + C[i]
-    #for i in range(N):
-        #for j in range(N):
-            #print(F[i][j], end=' ')
-        #print()
-    #print()
+    for i in range(N):
+        for j in range(N):
+            print(F[i][j], end=' ')
+        print()
+    print()
     finish = time.time()
     result = finish - start
     print("Время выполнения программы: " + str(result) + " секунд.")
