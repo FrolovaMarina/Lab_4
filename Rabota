@@ -1,14 +1,14 @@
 import time
 from random import randint
 try:
-    #K = int(input("Введите число K = "))
+    K = int(input("Введите число K = "))
     N = int(input("Введите чётное число N = "))
     if N % 2 != 0:
         print("Число нечётное")
         exit()
     start = time.time()
-    row_q = N
-    A = [[randint(0, 9) for j in range(N)] for i in range(N)]
+    A = [[randint(-10, 10) for j in range(N)] for i in range(N)]
+    print("A = ")
     for i in range(N):
         for j in range(N):
             print(A[i][j], end=' ')
@@ -16,41 +16,33 @@ try:
     print()
     B = []
     C = []
-    size = N // 2
-    for i in range(size):
-        B.append([0] * size)
-        for j in range(size):
+    half_of_N = N // 2
+    for i in range(half_of_N):
+        B.append([0] * half_of_N)
+        for j in range(half_of_N):
             B[i][j] = A[i][j]
-            #print(B[i][j], end=' ')
-        #print()
-    #print()
-    for i in range(size):
-        C.append([0] * size)
-        for j in range(size):
-            C[i][j] = A[i][j+size]
-            #print(C[i][j], end=' ')
-        #print()
+    for i in range(half_of_N):
+        C.append([0] * half_of_N)
+        for j in range(half_of_N):
+            C[i][j] = A[i][j+half_of_N]
     b1 = []
     for index, i in enumerate(B):
         if index < len(B) / 2:
             b1.append(i[:index+1])
         else:
             b1.append(i[:-index])
-    #print(b1)
     b2 = []
     for index, i in enumerate(B[:len(B) // 2]):
         if index == 0:
             b2.append(i)
         else:
             b2.append(i[index:-index])
-    #print(b2)
     b3 = []
     for index, i in enumerate(B):
         if index < len(B) / 2:
             b3.append(i[-index-1:])
         else:
             b3.append(i[index:])
-    #print(b3)
     count = 0
     simple_numbers = [2, 3, 5, 7]
     for index, i in enumerate(b2):
@@ -60,33 +52,85 @@ try:
             i = i[1::2]
         for k in simple_numbers:
             count += i.count(k)
-    #print(count)
     multiplication = 1
     for i in b3:
         if len(i) == 1:
             multiplication *= i[0]
         else:
             multiplication *= i[0] * i[-1]
-    #print(multiplication)
-    if count == multiplication:
+    if count > multiplication:
         for index, i in enumerate(B):
             if index < len(B) / 2:
                 i[:index + 1], i[-index - 1:] = i[-index - 1:][::-1], i[:index + 1][::-1]
             else:
                 i[:-index], i[index:] = i[index:][::-1], i[:-index][::-1]
-    #print(B)
     else:
         for index in range(len(B)):
             B[index], C[index] = C[index], B[index]
-    #print("B=", B)
-    #print("C=", C)
     F = A.copy()
-    for i in range(len(F)):
-        if i < len(F) / 2:
+    for i in range(N):
+        if i < N / 2:
             F[i] = B[i] + C[i]
+    print("F = ")
     for i in range(N):
         for j in range(N):
             print(F[i][j], end=' ')
+        print()
+    print()
+    #(1)
+    result1 = [[0] * N for i in range(N)]
+    for index, i in enumerate(A):
+        for index1, j in enumerate(i):
+            result1[index1][index] = j * K
+    print("result1 = К*A(T)")
+    for i in range(N):
+        for j in range(N):
+            print(result1[i][j], end=' ')
+        print()
+    print()
+    #(2)
+    result2 = [[0] * N for i in range(N)]
+    for i in range(N):
+        for j in range(N):
+            result2[i][j] = A[i][j] + F[i][j]
+    print("result2 = F+А")
+    for i in range(N):
+        for j in range(N):
+            print(result2[i][j], end=' ')
+        print()
+    print()
+    #(3)
+    result3 = [[0] * N for i in range(N)]
+    for index, i in enumerate(F):
+        for index1, j in enumerate(i):
+            result3[index1][index] = j * K
+    print("result3 = K*F(T)")
+    for i in range(N):
+        for j in range(N):
+            print(result3[i][j], end=' ')
+        print()
+    print()
+    #(4)
+    result4 = [[0] * N for i in range(N)]
+    for i in range(N):
+        for j in range(N):
+            for k in range(N):
+                result4[i][j] += result1[i][k] * result2[k][j]
+    print("result4 = (К*A(T))*(F+А)")
+    for i in range(N):
+        for j in range(N):
+            print(result4[i][j], end=' ')
+        print()
+    print()
+    #(5)
+    result5 = [[0] * N for i in range(N)]
+    for i in range(N):
+        for j in range(N):
+            result5[i][j] = result4[i][j] - result3[i][j]
+    print("result5 = (К*A(T))*(F+А)-K*F(T)")
+    for i in range(N):
+        for j in range(N):
+            print(result5[i][j], end=' ')
         print()
     print()
     finish = time.time()
@@ -94,3 +138,4 @@ try:
     print("Время выполнения программы: " + str(result) + " секунд.")
 except ValueError:
     print("Это не число")
+    
