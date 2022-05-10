@@ -2,9 +2,12 @@ import time
 from random import randint
 try:
     K = int(input("Введите число K = "))
-    N = int(input("Введите чётное число N = "))
+    N = int(input("Введите чётное положительное число N = "))
     if N % 2 != 0:
         print("Число N - нечётное")
+        exit()
+    if N <= 0:
+        print("Число N не является положительным")
         exit()
     start = time.time()
     A = [[randint(-10, 10) for j in range(N)] for i in range(N)]
