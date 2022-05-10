@@ -4,7 +4,7 @@ try:
     K = int(input("Введите число K = "))
     N = int(input("Введите чётное число N = "))
     if N % 2 != 0:
-        print("Число нечётное")
+        print("Число N - нечётное")
         exit()
     start = time.time()
     A = [[randint(-10, 10) for j in range(N)] for i in range(N)]
