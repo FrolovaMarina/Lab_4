@@ -3,12 +3,9 @@ from random import randint
 try:
     K = int(input("Введите число K = "))
     N = int(input("Введите чётное положительное число N = "))
-    if N % 2 != 0:
-        print("Число N - нечётное")
-        exit()
-    if N <= 0:
-        print("Число N не является положительным")
-        exit()
+    while N % 2 != 0 or N <= 0:
+        print("Число N не подходит заданному условию. Пожалуйста, введите N ещё раз: ")
+        N = int(input("Введите чётное положительное число N = "))
     start = time.time()
     A = [[randint(-10, 10) for j in range(N)] for i in range(N)]
     print("A = ")
@@ -141,4 +138,4 @@ try:
     print("Время выполнения программы: " + str(result) + " секунд.")
 except ValueError:
     print("Это не число")
-    
+
